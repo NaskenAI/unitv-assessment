@@ -110,9 +110,6 @@ details{margin:.4em 0}summary{cursor:pointer;color:var(--blueI);font-weight:600}
 <div class="bar"><button class="primary" id="check">Check my answers</button><button class="ghost" id="build">Submit</button></div>
 <div class="scorebox" id="scorebox"><div>Auto-graded flags: <span class="big" id="score">0</span> / 70</div><div class="pending">Q4 design (15) and written reasoning (15) — pending instructor review.</div><div id="details" style="margin-top:10px"></div><div id="codeout"></div></div>
 
-<details style="margin-top:28px"><summary>Instructor: verify a submission code</summary><div class="card"><div class="row">
-<div><label>Name</label><input type="text" id="vname"></div><div><label>Roll</label><input type="text" id="vroll"></div><div><label>Vault</label><input type="number" id="vvault" style="max-width:100px"></div><div><label>Auto-score</label><input type="number" id="vscore" style="max-width:120px"></div>
-</div><label>Submission code</label><input type="text" id="vcode" class="mono"><div class="bar"><button class="ghost" id="verify">Verify</button><span id="vresult" class="verdict"></span></div></div></details>
 <p class="small" style="margin-top:24px">Your targets are assigned by vault, so a copied answer is wrong for anyone else. This page grades the flags; reasoning and code (25) are marked by your instructor, who re-grades from your submission for the final mark.</p>
 </div>
 <script>
@@ -165,7 +162,6 @@ async function build(){
 // if this browser already submitted, lock the button on load
 (function(){try{const prev=localStorage.getItem("unitv_submitted");if(prev){const b=document.getElementById("build");if(b){b.textContent="Already submitted \u2713";b.disabled=true;__submitted=true;}}}catch(e){}})();
 document.getElementById("check").addEventListener("click",grade);document.getElementById("build").addEventListener("click",build);
-document.getElementById("verify").addEventListener("click",async()=>{const name=(document.getElementById("vname").value||"").trim();const roll=(document.getElementById("vroll").value||"").trim();const vault=(document.getElementById("vvault").value||"").trim();const score=(document.getElementById("vscore").value||"").trim();const code=(document.getElementById("vcode").value||"").trim().toLowerCase();const want=(await sha(name.toLowerCase()+"|"+roll.toLowerCase()+"|"+vault+"|"+score+"|"+VERIFY)).slice(0,16);const el=document.getElementById("vresult");if(name&&roll&&vault&&score!==""&&code===want){el.textContent="\u2713 valid — not altered";el.className="verdict ok"}else{el.textContent="\u2717 does not match";el.className="verdict bad"}});
 </script><script>
 // Block pasting (incl. AI answers), cutting, dragging and right-click everywhere.
 // Block copying page content, EXCEPT the submission box (so students can still submit).
