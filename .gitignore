@@ -1,0 +1,6 @@
+# Instructor-only files: never commit answers or grading material
+answer_key.csv
+grade_*.py
+reference_solution.py
+model_solutions.md
+*.zip
