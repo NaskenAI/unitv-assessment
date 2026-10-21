@@ -166,7 +166,11 @@ document.getElementById("build").addEventListener("click",build);
 // Block pasting (incl. AI answers), cutting, dragging and right-click everywhere.
 // Block copying page content, EXCEPT the submission box (so students can still submit).
 (function(){
-  ["paste","cut","drop","dragstart","contextmenu"].forEach(function(ev){
+  document.addEventListener("paste",function(e){
+    if(e.target&&e.target.closest&&e.target.closest('textarea[data-rkey="code_q2"], textarea[data-rkey="code_ids"], textarea[data-rkey="design_virus"]'))return;
+    e.preventDefault();e.stopPropagation();return false;
+  },true);
+  ["cut","drop","dragstart","contextmenu"].forEach(function(ev){
     document.addEventListener(ev,function(e){e.preventDefault();e.stopPropagation();return false;},true);
   });
   document.addEventListener("copy",function(e){
