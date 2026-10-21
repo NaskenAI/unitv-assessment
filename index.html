@@ -23,6 +23,20 @@ details{margin:.4em 0}summary{cursor:pointer;color:var(--blueI);font-weight:600}
 <h1>Unit V Practical Assessment</h1>
 <p class="lead">Open book. You may use an AI assistant to help you write code. But the answers are not written anywhere and are different for every student: you must run your own code over the data files to compute them. Pasting a question into an AI will, at most, get you code, not the answer.</p>
 <div class="note"><b>Your data</b> (download them from the Data link, or read them directly from /data/ on this site): ten shards <span class="mono">cred_00.txt … cred_09.txt</span>, together one big account table, each line <span class="mono">user:salt:hash</span> with <span class="mono">hash = sha256(salt + password)</span>; <span class="mono">leaked_plain.txt</span>, an older breach of <span class="mono">user:password</span> lines; and <span class="mono">access.log</span>, a large login log with lines <span class="mono">timestamp user result</span> (result is SUCCESS or FAIL). You must read across all ten shards for the password questions.</div>
+<div class="note"><b>Download the data files</b> (needed for Q1–Q3): 
+<a href="/data/cred_00.txt" download>cred_00</a>, 
+<a href="/data/cred_01.txt" download>cred_01</a>, 
+<a href="/data/cred_02.txt" download>cred_02</a>, 
+<a href="/data/cred_03.txt" download>cred_03</a>, 
+<a href="/data/cred_04.txt" download>cred_04</a>, 
+<a href="/data/cred_05.txt" download>cred_05</a>, 
+<a href="/data/cred_06.txt" download>cred_06</a>, 
+<a href="/data/cred_07.txt" download>cred_07</a>, 
+<a href="/data/cred_08.txt" download>cred_08</a>, 
+<a href="/data/cred_09.txt" download>cred_09</a>, 
+<a href="/data/leaked_plain.txt" download>leaked_plain.txt</a>, 
+<a href="/data/access.log" download>access.log</a>. 
+Save them in one folder and run your code there. (You can also read them directly in code from this site's /data/ path.)</div>
 <div class="card"><div class="row">
 <div><label>Name</label><input type="text" id="name"></div>
 <div><label>Roll / USN</label><input type="text" id="roll"></div>
