@@ -129,10 +129,12 @@ function esc(s){return(s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;")}
 document.getElementById("load").addEventListener("click",()=>{const n=parseInt(document.getElementById("vault").value,10);const v=BYID[n];const m=document.getElementById("loadmsg");if(!v){m.textContent="\u2717 no such vault (1–120)";m.className="verdict bad";document.getElementById("qdata").style.display="none";cv=null;return}cv=v;document.getElementById("t1").textContent=v.q1_users.join("   ");document.getElementById("t2").textContent=v.q2_user;document.getElementById("t3").textContent=v.ids_user;document.getElementById("qdata").style.display="block";m.textContent="\u2713 vault "+n+" loaded";m.className="verdict ok"});
 function readInputs(){const v={};document.querySelectorAll("[data-key]").forEach(el=>v[el.dataset.key]=el.value);for(let n=1;n<=5;n++){const el=document.querySelector("input[name=mcq"+n+"]:checked");v["mcq"+n]=el?el.value:""}const r={};document.querySelectorAll("[data-rkey]").forEach(el=>r[el.dataset.rkey]=el.value);return{v,r}}
 async function grade(){if(!cv){alert("Load your targets first.");return null}const{v}=readInputs();let score=0;const lines=[];for(const k of Object.keys(POINTS)){const want=VAULTKEYS.has(k)?cv.key[k]:COMMON_KEY[k];const got=await sha(SALT+"::"+norm(k,v[k]));const ok=got===want&&(v[k]||"").trim()!=="";if(ok)score+=POINTS[k];lines.push(`<div class="result"><span class="mark ${ok?'ok':'bad'}">${ok?'\u2713':'\u2717'}</span> ${LABELS[k]} <span class="small">(${ok?POINTS[k]:0}/${POINTS[k]})</span></div>`)}document.getElementById("score").textContent=score;document.getElementById("details").innerHTML=lines.join("");document.getElementById("scorebox").classList.add("show");document.getElementById("codeout").innerHTML="";return score}
+async function computeScore(){if(!cv){alert("Load your targets first.");return null}const{v}=readInputs();let score=0;for(const k of Object.keys(POINTS)){const want=VAULTKEYS.has(k)?cv.key[k]:COMMON_KEY[k];const got=await sha(SALT+"::"+norm(k,v[k]));const ok=got===want&&(v[k]||"").trim()!=="";if(ok)score+=POINTS[k]}return score}
 async function build(){
   if(__submitted){alert("You have already submitted. Each student submits once.");return}
+  if(!confirm("Submit now? You can only submit once, and you cannot change your answers afterwards. Make sure you have entered everything.")) return;
   const btn=document.getElementById("build");
-  const score=await grade();if(score===null)return;
+  const score=await computeScore();if(score===null)return;
   const {v,r}=readInputs();
   const name=(document.getElementById("name").value||"").trim();
   const roll=(document.getElementById("roll").value||"").trim();
@@ -153,7 +155,7 @@ async function build(){
     __submitted=true;
     try{localStorage.setItem("unitv_submitted", roll.toLowerCase());}catch(e){}
     btn.textContent="Submitted \u2713"; btn.disabled=true;
-    out.innerHTML=`<div class="codebox"><b>Submitted \u2713</b> &nbsp; Name <b>${esc(name)}</b> · Roll <b>${esc(roll)}</b> · Vault <b>${vid}</b> · Auto-score <b>${score}/70</b> · Code <b class="mono">${code}</b><br>Your answers have been recorded. A backup file also downloaded; keep it until your marks are confirmed.</div>`;
+    out.innerHTML=`<div class="codebox"><b>Submitted \u2713 — well done.</b> Your answers have been recorded. A backup file also downloaded; keep it until your marks are confirmed.<br><span class="small"> <b>${esc(name)}</b> · Roll <b>${esc(roll)}</b> · Vault <b>${vid}</b></span></div>`;
   }else{
     btn.disabled=false; btn.textContent="Submit";
     out.innerHTML=`<div class="codebox"><b>Could not reach the server.</b> A backup file (<b>unitV_${esc(roll)}_v${vid}.json</b>) downloaded to your computer — give that file to your instructor, or try Submit again once your connection is back.</div>`;
