@@ -93,10 +93,10 @@ Save them in one folder and run your code there.</div>
 </div>
 
 <div id="qdata" class="qdata">
-<h2>Q1 — Which leaked passwords still work? <span class="pill">15 marks</span></h2>
+<h2>Q1 — Which leaked passwords are still correct? <span class="pill">15 marks</span></h2>
 <div class="card">
 <p>Your 8 assigned accounts:</p><span class="ulist" id="t1"></span>
-<p class="small">Each appears in <span class="mono">leaked_plain.txt</span>, but some leak entries are <b>old</b> passwords that no longer match. For each account, find its salt and hash in the shards and check whether the leaked password actually verifies (<span class="mono">sha256(salt+leaked) == hash</span>).</p>
+<p class="small">You are given 8 accounts. For each, leaked_plain.txt has a password, but some are old and no longer correct. A leaked password is correct only if its hash matches: sha256(salt + leaked) must equal the stored hash. Report: (a) for how many of your 8 the leaked password is correct, and (b) the correct password of the first account in your list.</p>
 <label>How many of your 8 accounts have a leaked password that still verifies? <span class="hint">(a number 0–8)</span></label>
 <input type="number" data-key="q1_count" style="max-width:160px">
 <label>The verified password of the <b>first</b> account in your list <span class="hint">(exact, case-sensitive)</span></label>
@@ -104,10 +104,10 @@ Save them in one folder and run your code there.</div>
 <label>Reasoning: why is it wrong to just look the username up in the leak and trust the password? <span class="hint">(one sentence)</span></label>
 <textarea data-rkey="r_q1"></textarea>
 </div>
-<h2>Q2 — Count the reuse <span class="pill">20 marks</span></h2>
+<h2>Q2 — How many accounts share one password? <span class="pill">20 marks</span></h2>
 <div class="card">
 <p>Your target account: <span class="target" id="t2"></span></p>
-<p class="small">This account's password is in the leak and verifies. Across <b>all ten shards</b>, how many accounts reuse that same password? Every account has a different salt, so two accounts with the same password do not have the same stored hash.</p>
+<p class="small">Take your target account's password (it is in leaked_plain.txt and is correct). Across all ten cred files, how many accounts use this same password? Each account has a different salt, so two accounts with the same password have different stored hashes — you must re-hash the password with each account's salt. Report the count, including the target.</p>
 <label>How many accounts share your Q2 account's password? <span class="hint">(count the target itself)</span></label>
 <input type="number" data-key="q2" style="max-width:200px">
 <label>Reasoning: why can't you answer this by counting repeated hashes? <span class="hint">(one sentence)</span></label>
@@ -115,10 +115,10 @@ Save them in one folder and run your code there.</div>
 <label>Paste the code you ran <span class="hint">(for marking)</span></label>
 <textarea data-rkey="code_q2" class="mono"></textarea>
 </div>
-<h2>Q3 — Who broke in, and when? <span class="pill">25 marks</span></h2>
+<h2>Q3 — Find the break-in <span class="pill">25 marks</span></h2>
 <div class="card">
 <p>Your target account: <span class="target" id="t3"></span></p>
-<p class="small">In <span class="mono">access.log</span>, your account has <b>several</b> successful logins — but only one of them is the attacker breaking in, after a long run of failed guesses; the rest are the user's normal logins. Process the log with code, put your account's events in time order, and identify the real break-in.</p>
+<p class="small">Your account was broken into. In access.log it has several successful logins, but only one is the attacker: the SUCCESS that comes right after a burst of failed attempts. The normal logins have no failures before them. Report: (a) how many failed attempts there were, and (b) the timestamp of that successful login.</p>
 <label>How many <b>failed</b> login attempts were made against your account? <span class="hint">(a number)</span></label>
 <input type="number" data-key="ids_fails" style="max-width:200px">
 <label>At what <b>timestamp</b> did the break-in succeed? <span class="hint">(the SUCCESS that follows the run of failures — not a normal login)</span></label>
