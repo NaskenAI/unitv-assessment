@@ -22,7 +22,13 @@ details{margin:.4em 0}summary{cursor:pointer;color:var(--blueI);font-weight:600}
 </style></head><body><div class="wrap">
 <h1>Unit V Practical Assessment</h1>
 <p class="lead">Open book. You may use an AI assistant to help you write code. But the answers are not written anywhere and are different for every student: you must run your own code over the data files to compute them. Pasting a question into an AI will, at most, get you code, not the answer.</p>
-<div class="note"><b>Your data</b> (download them from the links below): ten shards <span class="mono">cred_00.txt … cred_09.txt</span>, together one big account table, each line <span class="mono">user:salt:hash</span> with <span class="mono">hash = sha256(salt + password)</span> (salt first; for example, salt <span class="mono">Kq</span> and password <span class="mono">hello</span> give <span class="mono">sha256('Kqhello')</span>); <span class="mono">leaked_plain.txt</span>, an older breach of <span class="mono">user:password</span> lines; and <span class="mono">access.log</span>, a large login log with lines <span class="mono">timestamp user result</span> (result is SUCCESS or FAIL). You must read across all ten shards for the password questions.</div>
+<div class="note"><b>Your data</b> — download the files from the links below, then run your code over them.
+<ul style="margin:.5em 0 0;padding-left:1.2em;line-height:1.55">
+<li><b><span class="mono">cred_00.txt</span> … <span class="mono">cred_09.txt</span></b> — ten shards that together form one account table. Each line is <span class="mono">user:salt:hash</span>, where <span class="mono">hash = sha256(salt + password)</span>.<br><span class="small">Salt first: salt <span class="mono">Kq</span> + password <span class="mono">hello</span> → <span class="mono">sha256('Kqhello')</span>.</span></li>
+<li><b><span class="mono">leaked_plain.txt</span></b> — an older breach: lines of <span class="mono">user:password</span>.</li>
+<li><b><span class="mono">access.log</span></b> — a large login log: lines of <span class="mono">timestamp user result</span> (result is <span class="mono">SUCCESS</span> or <span class="mono">FAIL</span>).</li>
+</ul>
+<div style="margin-top:.5em">Read across all ten shards for the password questions.</div></div>
 <div class="note"><b>Download the data files</b> (needed for Q1–Q3): 
 <a href="/data/cred_00.txt" download>cred_00</a>, 
 <a href="/data/cred_01.txt" download>cred_01</a>, 
